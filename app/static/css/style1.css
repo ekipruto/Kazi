@@ -1,0 +1,47 @@
+/* General styling Floating Menus */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+/* Menu container */
+.menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Menu items */
+.menu-item {
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    color: #6c757d;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Active menu item */
+.menu-item.active {
+    background-color: #5cb85c; /* Green */
+    color: white;
+    border: none;
+}
+
+/* Hover effect */
+.menu-item:hover {
+    background-color: #5cb85c;
+    color: white;
+    border: none;
+}

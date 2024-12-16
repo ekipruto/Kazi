@@ -1,5 +1,7 @@
 # Kazi
-This is a recruitment portal done in Python/Flask
+This is a recruitment portal done in Python/Flask for easy and quick way of getting the right candidates as well as reducing 
+on paper work and making it possible for candidates to apply for these vacancies without having to make any travel to 
+post office to submit their applications.
 Recruitment Portal in Flask:
 
 User Authentication:
@@ -51,11 +53,9 @@ Administrative functionalities for managing users, job postings, and site settin
 Role management and monitoring system activities.
 
 Security:
-
 Proper handling of user data with encryption.
 
 Protection against common web vulnerabilities (e.g., SQL Injection, CSRF).
 
 Responsive Design:
-
 Mobile-friendly interface to ensure users can access the portal on different devices.

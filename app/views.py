@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, flash,redirect,request,jsonify
+from flask import Blueprint, render_template, flash,redirect,request,jsonify,url_for
 from .models import Vacancy, Profile
 #from models import db, Vacancy
 from flask_login import login_required,current_user
@@ -29,52 +29,49 @@ def vacancy_details(vacancy_id):
     vacancy=Vacancy.query.get_or_404(vacancy_id)
     return render_template('vacancy_details.html', vacancy=vacancy)
 
-@views.route('/profile', methods=['GET, POST'])
+@views.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    form=ProfileForm()
+    form = ProfileForm()
     if form.validate_on_submit():
-        email=form.email.data
-        title=form.title.data
-        first_name=form.first_name.data
-        last_name=form.last_name.data
-        gender=form.gender.data
-        dob=form.dob.data
-        phone=form.phone.data
-        alt_phone=form.alt_phone.data
-        postal_address=form.postal_address.data
-        postal_code=form.postal_code.data
+        email = form.email.data
+        title = form.title.data
+        first_name = form.first_name.data
+        last_name = form.last_name.data
+        gender = form.gender.data
+        dob = form.dob.data
+        phone = form.phone.data
+        alt_phone = form.alt_phone.data
+        postal_address = form.postal_address.data
+        postal_code = form.postal_code.data
 
-        user_profile=Profile()
-        user_profile.email=email
-        user_profile.title=title
-        user_profile.first_name=first_name
-        user_profile.last_name=last_name
-        user_profile.gender=gender
-        user_profile.dob=dob
-        user_profile.phone=phone
-        user_profile.alt_phone=alt_phone
-        user_profile.postal_address=postal_address
-        user_profile.postal_code=postal_code
+        # Check for duplicate email 
+        existing_profile = Profile.query.filter_by(email=email).first() 
+        if existing_profile: 
+           flash(f'A profile with this email already exists. Please use a different email.') 
+           return render_template('profile.html', form=form)
+        
+        user_profile = Profile(
+            email=email,
+            title=title,
+            first_name=first_name,
+            last_name=last_name,
+            gender=gender,
+            dob=dob,
+            phone=phone,
+            alt_phone=alt_phone,
+            postal_address=postal_address,
+            postal_code=postal_code
+        )
         
         try:
             db.session.add(user_profile)
             db.session.commit()
-            flash('records added successfully')
-            return redirect('/profile')
-            
+            flash(f'Records added successfully')
+            return redirect(url_for('profile'))
         except Exception as e:
             print(e)
-            flash('Profile not created, try again')
-
-            form.email.data=''
-            form.title.data=''
-            form.first_name.data-=''
-            form.last_name.data=''
-            form.gender.data=''
-            form.dob.data=''
-            form.phone.data-=''
-            form.alt_phone.data=''
-            form.postal_address.data=''
-            form.postal_code.data-=''
+            flash(f'Profile not created, try again')
+            form = ProfileForm()  # Reset/clear form fields
+    
     return render_template('profile.html', form=form)

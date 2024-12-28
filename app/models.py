@@ -40,13 +40,13 @@ class Vacancy(db.Model):
 
 class Profile(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(150), nullable=False)
+    email = db.Column(db.String(150), nullable=False, unique=True)
     title = db.Column(db.String(20), nullable=False)
     first_name = db.Column(db.String(100), nullable=False)
     last_name = db.Column(db.String(100), nullable=False)
     gender = db.Column(db.String(50), nullable=False)
     dob = db.Column(db.String(150), nullable=False)
     phone = db.Column(db.String(20), nullable=False)
-    alt_phone = db.Column(db.String(100), nullable=False)
+    alt_phone = db.Column(db.String(100), nullable=True)
     postal_address = db.Column(db.String(100), nullable=False)
     postal_code = db.Column(db.String(50), nullable=False)

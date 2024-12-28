@@ -1,34 +1,90 @@
-<form method="POST">
-    {{ form.csrf_token }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Form</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style2.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages() %} {% if messages %} 
+        <div class="flash-messages" id="flash-messages"> 
+            {% for message in messages %} 
+            <div class="alert">{{ message }}
+            </div> 
+            {% endfor %} 
+        </div> <script> setTimeout(function()
+             { var flashMessages = document.getElementById('flash-messages'); flashMessages.classList.add('fade-out'); }, 3000); // 3000 milliseconds = 3 seconds </script> {% endif %} {% endwith %}
+        <h3>My Account</h3>
+        
+        <div class="tabs">
+            <div class="tab active">1. Profile</div>
+            <div class="tab">2. Education</div>
+            <div class="tab">3. Work Experience</div>
+            <div class="tab">4. Referee</div>
+            <div class="tab">5. Summary</div>
+        </div>
+
+        <p class="required-note">Fields marked with * are required</p>
     
-    <h3>My Account</h3>
-    <div class="tabs">
-        <div class="active">1. Profile</div>
-        <div>2. Education</div>
-        <div>3. Work Experience</div>
-        <div>4. Referee</div>
-        <div>5. Summary</div>
+        <form class="profile-form" method="POST" action="{{ url_for('views.profile') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">E-mail *</label>
+                    {{ form.email }}
+                </div>
+                <div class="form-group">
+                    <label for="title">Title</label>
+                    {{ form.title }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="first-name">First Name *</label>
+                    {{ form.first_name }}
+                </div>
+                <div class="form-group">
+                    <label for="last-name">Last Name *</label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="gender">Gender</label>
+                    {{ form.gender }}
+                </div>
+                <div class="form-group">
+                    <label for="dob">Date of Birth</label>
+                    {{ form.dob }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    {{ form.phone }}
+                </div>
+                <div class="form-group">
+                    <label for="alt-phone">Alternative Phone</label>
+                    {{ form.alt_phone }}
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="postal-address">Postal Address</label>
+                    {{ form.postal_address }}
+                </div>
+                <div class="form-group">
+                    <label for="postal-code">Postal Code</label>
+                    {{ form.postal_code }}
+                </div>
+            </div>
+            <div class="button-group">
+                <button class="save" type="submit">SAVE</button>
+                <button class="next" type="button">NEXT</button>
+            </div>
+        </form>
     </div>
-
-    <div class="form-group">
-        {{ form.email.label }}
-        {{ form.email(class="form-control") }}
-    </div>
-
-    <div class="form-row">
-        <div class="form-group">
-            {{ form.title.label }}
-            {{ form.title(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.first_name.label }}
-            {{ form.first_name(class="form-control") }}
-        </div>
-        <div class="form-group">
-            {{ form.last_name.label }}
-            {{ form.last_name(class="form-control") }}
-        </div>
-    </div>
-    <button type="submit">Save</button>
-    <button type="button">Next</button>
-</form>
+</body>
+</html>

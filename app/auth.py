@@ -16,12 +16,15 @@ def sign_up():
         password1=form.password1.data
         password2=form.password2.data
 
+        
+
         if password1==password2:
             new_user=Users()
             new_user.email=email
             new_user.username=username
             new_user.password=password2
-
+        
+        
             try:
                 db.session.add(new_user)
                 db.session.commit()
@@ -36,7 +39,6 @@ def sign_up():
                 form.username.data=''
                 form.password1.data-=''
                 form.password2.data=''
-
     return render_template('signup.html', form=form)
 
 @auth.route('/login', methods=['GET', 'POST'])

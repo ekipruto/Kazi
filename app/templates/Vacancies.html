@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Available Vacancies</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .vacancy { border: 1px solid #ddd; margin: 10px; padding: 10px; border-radius: 5px; }
+        .button { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Available Vacancies</h1>
+    {% for vacancy in vacancies %}
+    <div class= "vacancy">
+        <h2>{{ vacancy.title }}</h2>
+        <p><strong>Department:</strong> {{ vacancy.department }} | <strong>Type:</strong> {{ vacancy.contract_type }}</p>
+        <p>Posted: {{ vacancy.posted_date }} | Expires: {{ vacancy.expiry_date }}</p>
+        <p>{{ vacancy.description[:200] }}...</p>
+        <a class="button" href="{{ url_for('views.vacancy_details', vacancy_id=vacancy.id) }}">View Details</a>
+        <a class="button" href="#">Download</a>
+    </div>
+    {% else %}
+    <p>No vacancies available at the moment.</p>
+    {% endfor %}
+</body>
+</html>

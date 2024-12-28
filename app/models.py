@@ -15,7 +15,6 @@ class Users(db.Model, UserMixin):
     #Relationships
     #cart_items = db.relationship('Cart', backref=db.backref('users', lazy=True))
     #orders = db.relationship('Order', backref=db.backref('users', lazy=True))
-
     @property
     def password(self):
         raise AttributeError('Password is not a readable Attribute')
@@ -29,3 +28,25 @@ class Users(db.Model, UserMixin):
 
     def __str__(self):
         return '<Users %r>' % Users.id
+
+class Vacancy(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(150), nullable=False)
+    department = db.Column(db.String(100), nullable=False)
+    contract_type = db.Column(db.String(50), nullable=False)
+    posted_date = db.Column(db.Date, nullable=False)
+    expiry_date = db.Column(db.Date, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+
+class Profile(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(150), nullable=False)
+    title = db.Column(db.String(20), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    gender = db.Column(db.String(50), nullable=False)
+    dob = db.Column(db.String(150), nullable=False)
+    phone = db.Column(db.String(20), nullable=False)
+    alt_phone = db.Column(db.String(100), nullable=False)
+    postal_address = db.Column(db.String(100), nullable=False)
+    postal_code = db.Column(db.String(50), nullable=False)
